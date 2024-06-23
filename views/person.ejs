@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li><%= firstname %></li>
+        <li><%= lastname %></li>
+        <li><%- link %></li>
+    </ul>
+    <% let fY = new Date().getFullYear() %>
+    <% let y = fY + 543 %>
+    <p>
+      พ.ศ. <%=y%>
+      <% 
+        if((y % 4 == 0) && (y % 100 == 0) || (y % 400 == 0)) {
+      %>
+        <p>เป็นปี Leap Year</p>
+      <% }else{ %>
+        <p>ไม่ใช่ปี Leap Year</p>
+      <% } %>
+    </p>
+
+</body>
+</html>
