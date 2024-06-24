@@ -1,25 +1,31 @@
 <%- include('head') %>
 <%- include('navbar') %>
 
-<div class="content">
-    <table border="1" cellspacing="0" cellpadding="0">
-        <tr>
-            <th>name</th>
-            <th>price</th>
-            <th>color</th>
-        </tr>
-        <% for (i in products) {%>
-        <tr>
-            <% for (j in products[i]) {%>
-                <td><%= products[i][j] %></td>
-            <% }%>
-        </tr>
-        <%
-        }
-        %>
-    </table>
+<div class="container">
+    <% if(locals.product) { %>
+
+        <div class="info">
+            <h2>ข้อมูลสินค้า</h2> <br>
+            ชื่อสินค้า : <%= product %> <br/>
+            ราคา :  <%=price%> <br/>
+            ปริมาณ : <%= quantity %> <br/>
+            รายละเอียด : <%= desc %> <br/>
+            วันที่เพิ่ม : <%= date_add %> <br/>
+            <br>
+            <a href="/product"> <button class="btn btn-danger">ย้อนกลับ</button></a>
+
+        </div>
+    <% } else { %>
+        <form action="/product" method="POST">
+            <input type="text" name="product" id="" class="form-control" placeholder="ชื่อผลิตภัณฑ์">
+            <input type="number" name="price" id="" class="form-control" placeholder="ราคา" step="any">
+            <input type="number" name="quantity" id="" class="form-control" placeholder="จำนวน" step="any">
+            <textarea name="desc" class="form-control" placeholder="รายละเอียด" id=""></textarea>
+            <input type="date" class="form-control" placeholder="วันที่เพิ่มสินค้า" name="date_add" id="">
+            <button class="btn btn-info">เพิ่มข้อมูล</button>
+        </form>
+        <br>
+    <% } %>
+
 </div>
-
-
-
 <%- include('footer') %>

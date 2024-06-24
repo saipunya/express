@@ -1,0 +1,18 @@
+<%- include('head') %>
+<%- include('navbar') %>
+<h4>ค้นหา</h4>
+<div class="container">
+
+<% if(locals.q) { %>
+    <div>ผลการค้นหา: <%= q %> <%= p %> </div>
+<% }else{ %>
+    <form action="/search" method="get">
+        <input type="text" name="q" id="">
+        <input type="hidden" name="p" value="3">
+        <button class="btn btn-sm btn-success">ค้นหา</button>
+    </form>
+    <br>
+<% } %>
+</div>
+
+<%- include('footer') %>
