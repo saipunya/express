@@ -1,0 +1,41 @@
+<%- include('head') %>
+<%- include('navbar') %>
+<% if (!locals.data) { %>
+    <form action="/form" method="post" style="padding:10px" >
+        <span>Fruit:</span><br>
+        <input type="checkbox" name="fruit" id="" value="Apple"> Apple <br>
+        <input type="checkbox" name="fruit" id="" value="Lemon"> Lemon <br>
+        <input type="checkbox" name="fruit" id="" value="Melon"> Melon <br>
+        <hr>
+        <span>Flower</span><br>
+        <input type="radio" name="flower" id="" value="Rose"> Rose <br>
+        <input type="radio" name="flower" id="" value="Orchid"> Orchid <br>
+        <input type="radio" name="flower" id="" value="Jasmine"> Jasmine <br>
+        <br>
+        <span>Color</span>
+        <select name="color" id="">
+            <option value="Red">Red</option>
+            <option value="Green">Green</option>
+            <option value="Blue">Blue</option>
+        </select>
+        <br><br>
+        <span>Animal</span><br>
+        <select name="animal" id="" multiple>
+            <option value="Dog">Dog</option>
+            <option value="Cat">Cat</option>
+            <option value="Chicken">Chicken</option>
+        </select>
+        <br>
+    <button>send</button>
+    </form>
+<% } else { %>
+    <div>
+        Fruit : <%= fr %> <br>
+        Flower : <%= flo %> <br>
+        color : <%= color %> <br>
+        animal : <%= anm %> <br>
+    </div>
+    <button><a href="/">ย้อนกลับ</a></button>
+<% } %>
+<hr>
+<%- include('footer') %>

@@ -7,9 +7,32 @@ app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended : true }))
 app.use('/dist', express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.get('/', (req, res) =>{
-    res.redirect('product')
+    res.redirect('form')
 })
 
+app.all('/form', (req, res) =>{
+    let data = {}
+    if(Object.keys(req.body).length > 0){
+        let fruit = ''
+        if(req.body.fruit){
+            if(Array.isArray(req.body.fruit)){
+                fruit = req.body.fruit.join(', ')
+            }else{
+                fruit = req.body.fruit
+            }
+        }
+        let flower = req.body.flower || ''
+        let color = req.body.color
+        let animal = ''
+        if(Array.isArray(req.body.animal)){
+            animal = req.body.animal.join(',')
+        }else{
+            animal = req.body.animal
+        }
+        data = { data : true, fr: fruit,flo : flower, color: color,anm:animal}
+    }
+    res.render('form', data)
+})
 app.all('/search' , (req, res) =>{
 
     // let query = req.query
