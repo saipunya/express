@@ -5,9 +5,25 @@ const engine = require('ejs')
 const path = require('path')
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended : true }))
-app.use('/dist', express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use('/dist', express.static(__dirname + '/node_modules/bootstrap/dist'))
+app.use('/axios',express.static(__dirname + '/node_modules/axios/dist'))
 app.get('/', (req, res) =>{
-    res.redirect('form')
+    res.redirect('/random')
+})
+
+app.get('/random', (req, res) => {
+    if(Object.keys(req.query).length == 0 ){
+        res.render('random')
+    }else{
+        if(req.xhr || req.headers.accept.indexOf('json') > -1){
+            let min = parseInt(req.query.min)
+            let max = parseInt(req.query.max)
+            let rand = min + Math.floor(Math.random()*((max-min) +1))
+            res.send({ ra : rand})
+        }
+
+       
+    }
 })
 
 app.all('/form', (req, res) =>{
@@ -66,24 +82,8 @@ app.all('/product2', (req, res) => {
     })
 })
 
-app.get('/test', (req, res) => {
-    res.render('add')
-})
 
-app.all('/add', (req, res) => {
-    let data = {}
-    if(req.body.num1){
-        let num1 = req.body.num1
-        let num2 = req.body.num2
-        let r = parseFloat(num1) + parseFloat(num2)
-        data = {
-            n1 : num1,
-            n2 : num2,
-            r : r,
-        }
-    }
-    res.render('add', data)
-})
+
 
 app.all('/product',(req, res) => {
     let data = {}
