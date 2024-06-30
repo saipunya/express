@@ -20,8 +20,9 @@ app.all('/login',(req, res) =>{
             if(users.includes(req.body.login)){
                 loginExist = true
             }
-            res.send({ exist: loginExist})
+            res.send({ exist : loginExist})
         }
+       
     }
 })
 
