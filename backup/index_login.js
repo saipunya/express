@@ -8,21 +8,21 @@ app.use(bodyParser.urlencoded({ extended : true }))
 app.use('/dist', express.static(__dirname + '/node_modules/bootstrap/dist'))
 app.use('/axios',express.static(__dirname + '/node_modules/axios/dist'))
 app.get('/', (req, res) =>{
-    res.redirect('bgoverlay')
+    res.redirect('login')
 })
-app.all('/bgoverlay', async (req, res) =>{
-    if(!req.body.test){
-        res.render('bgoverlay')
+app.all('/login',(req, res) =>{
+    if(!req.body.login){
+        res.render('login')
     }else{
         if(req.xhr || req.headers.accept.indexOf('json') > -1){
-            let delay = (time)=>{
-                return new Promise((resolve, reject)=>{
-                    setTimeout(()=> resolve(),time)
-                })
+            let loginExist = false
+            let users = ['admin','node','express']
+            if(users.includes(req.body.login)){
+                loginExist = true
             }
-            await delay(2000)
-            res.send({})
+            res.send({ exist : loginExist})
         }
+       
     }
 })
 

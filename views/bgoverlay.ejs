@@ -1,0 +1,69 @@
+<%- include('head') %>
+<%- include('navbar') %>
+<style>
+    #overlayBg{
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top : 0;
+        left : 0;
+        right: 0;
+        bottom : 0;
+        background-color : rgba(0,0,0,0.3);
+        z-index: 10000;
+    }
+    #overlayTextImg{
+        position : absolute;
+        top : 50%;
+        left : 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: (translate(-50,-50%));
+        text-align: center;
+    }
+    #overlayText {
+        font-size : 1.5rem;
+        color:rgb(34, 30, 30);
+
+    }
+    #overlayImg{
+        width: 50%;
+    }
+</style>
+<script src="/axios/axios.min.js"></script>
+<button onclick="ajaxSubmit()" class="btn btn-info">test overlay</button>
+<div id="overlayBg">
+    <div id="overlayTextImg">
+        <img class="overImg" src="https://i.gifer.com/ZKZg.gif" alt="">
+        <br><br>
+        <div id="overlayText" >กำลังโหลด</div>
+    </div>
+</div>
+<script>
+    function overlayOn(){
+        document.querySelector('#overlayBg').style.display = 'block'
+    }
+    function overlayOff(){
+        document.querySelector('#overlayBg').style.display = 'none'
+    }
+    function  ajaxSubmit(){
+        let p = new URLSearchParams();
+        p.append('test', 1)
+        axios({
+            url : '/bgoverlay',
+            method : 'POST',
+            data : p,
+            timeout :5000,
+        }).then(result => {
+            overlayOff()
+            setTimeout(()=>{
+                alert('success',1000)
+            })
+        }).catch(error => {
+            overlayOff()
+            alert(error)
+        })
+        overlayOn()
+    }
+</script>
+<%- include('footer') %>
